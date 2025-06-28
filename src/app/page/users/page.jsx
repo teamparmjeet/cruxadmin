@@ -23,7 +23,6 @@ export default function AllUsersPage() {
     const [sortConfig, setSortConfig] = useState({ key: 'joinDate', direction: 'descending' });
 
     const { data: session } = useSession();
-console.log(session.accessToken)
     useEffect(() => {
         const fetchUsers = async () => {
             if (!session?.accessToken) return;
