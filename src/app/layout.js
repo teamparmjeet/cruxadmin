@@ -1,5 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { NextAuthProvider } from "./providers";
+import { Sidebar } from "./components/Sidebar";
+import { Header } from "./components/Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,7 +25,27 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <NextAuthProvider>
+         <div className="flex min-h-screen w-full bg-slate-50">
+            
+            {/* Permanent Sidebar for Desktop */}
+            <aside className="fixed inset-y-0 left-0 z-20 hidden w-60 flex-col border-r border-slate-200 bg-white sm:flex">
+              <div className="flex h-16 shrink-0 items-center border-b border-slate-200 px-6">
+                <h1 className="text-lg font-bold text-slate-800">WelFog</h1>
+              </div>
+              <div className="flex-1 overflow-auto py-2">
+                <Sidebar />
+              </div>
+            </aside>
+            
+            {/* Main Content Area */}
+            {/* sm:pl-60 now perfectly matches the sidebar's w-60 */}
+            <div className="flex flex-1 flex-col sm:pl-60">
+              <Header />
+              <main className="flex-1 p-4 sm:px-6 md:py-6">{children}</main>
+            </div>
+          </div>
+        </NextAuthProvider>
       </body>
     </html>
   );
